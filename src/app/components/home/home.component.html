@@ -1,0 +1,49 @@
+<main>
+   <div class="container">
+    @if(!isLoading)
+    {
+        <app-spinner class="fixed inset-0 bg-white bg-opacity-50 z-50"></app-spinner>
+    }
+    @if(isLoading)
+    {
+        <section class="categories my-5 w-1/4 text-center mx-auto">
+            <h2 class="text-2xl font-semibold p-4">Categories</h2>
+            <select (change)="getSpecificProducts($event)" class="border border-gray-300 w-full rounded-md p-2">
+                <option selected value="All">All</option>
+                @for (category of categories; track $index) 
+                {
+                    <option value="{{category}}">{{category}}</option>
+                }
+            </select>
+        </section>
+    }
+    @if(isLoading)
+    {
+        <section class="products my-8">
+            <div class="grid grid-cols-1 sm::grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                @for(product of products; track $index)
+                {
+                    <div class="product-body shadow-lg shado rounded-md mx-3 my-5">
+                        <div class="product-image text-center my-3">
+                            <img [src]="product.image" alt="product-img" class="w-40 h-40 mx-auto"/>
+                        </div>
+                        <div class="product-content bg-gray-100 px-4 py-2">
+                            <div class="product-info flex justify-between my-4">
+                                <div class="product-title">
+                                    <h2 class="font-semibold">{{product.title | shortTitle}}</h2>
+                                </div>
+                                <div class="product-price">
+                                    <p class="font-semibold">${{product.price}}</p>
+                                </div>
+                            </div>
+                            <div class="product-description overflow-hidden">
+                                <p class="h-24 text-gray-700">{{product.description}}</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    }
+   </div>
+</main>
